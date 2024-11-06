@@ -865,3 +865,10 @@ WARNING: Unmatched cancel notification for request id 2413
 2024.11.06 11:25:22 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
 2024.11.06 11:25:25 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
 2024.11.06 11:25:28 INFO  time: compiled joern-parse_f4dd477a3a in 2.7s
+Exception in thread "pool-23-thread-3" java.lang.InterruptedException
+	at scala.meta.internal.metals.FutureCancelToken.checkCanceled(FutureCancelToken.scala:29)
+	at scala.meta.internal.pc.CompilerAccess.onCompilerJobQueue$$anonfun$1(CompilerAccess.scala:244)
+	at scala.meta.internal.pc.CompilerJobQueue$Job.run(CompilerJobQueue.scala:153)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
