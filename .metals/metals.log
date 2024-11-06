@@ -872,3 +872,214 @@ Exception in thread "pool-23-thread-3" java.lang.InterruptedException
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:840)
+2024.11.06 12:37:27 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 12:37:32 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 12:37:35 INFO  time: compiled joern-parse_f4dd477a3a in 3.47s
+Downloading https://repo1.maven.org/maven2/org/scalameta/scalafmt-core_2.13/3.7.15/scalafmt-core_2.13-3.7.15.pom
+Downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.11/scala-reflect-2.13.11.pom
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.11/scala-reflect-2.13.11.pom
+Downloaded https://repo1.maven.org/maven2/org/scalameta/scalafmt-core_2.13/3.7.15/scalafmt-core_2.13-3.7.15.pom
+Downloading https://repo1.maven.org/maven2/org/scalameta/scalafmt-sysops_2.13/3.7.15/scalafmt-sysops_2.13-3.7.15.pom
+Downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.11/scala-library-2.13.11.pom
+Downloading https://repo1.maven.org/maven2/org/scalameta/scalameta_2.13/4.8.12/scalameta_2.13-4.8.12.pom
+Downloading https://repo1.maven.org/maven2/org/scalameta/scalafmt-config_2.13/3.7.15/scalafmt-config_2.13-3.7.15.pom
+Downloaded https://repo1.maven.org/maven2/org/scalameta/scalafmt-sysops_2.13/3.7.15/scalafmt-sysops_2.13-3.7.15.pom
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.11/scala-library-2.13.11.pom
+2024.11.06 12:37:38 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+Downloaded https://repo1.maven.org/maven2/org/scalameta/scalameta_2.13/4.8.12/scalameta_2.13-4.8.12.pom
+Downloaded https://repo1.maven.org/maven2/org/scalameta/scalafmt-config_2.13/3.7.15/scalafmt-config_2.13-3.7.15.pom
+Downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.pom
+Downloading https://repo1.maven.org/maven2/org/scalameta/parsers_2.13/4.8.12/parsers_2.13-4.8.12.pom
+Downloading https://repo1.maven.org/maven2/com/geirsson/metaconfig-core_2.13/0.12.0/metaconfig-core_2.13-0.12.0.pom
+Downloading https://repo1.maven.org/maven2/com/geirsson/metaconfig-typesafe-config_2.13/0.12.0/metaconfig-typesafe-config_2.13-0.12.0.pom
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.pom
+Downloaded https://repo1.maven.org/maven2/com/geirsson/metaconfig-typesafe-config_2.13/0.12.0/metaconfig-typesafe-config_2.13-0.12.0.pom
+Downloaded https://repo1.maven.org/maven2/com/geirsson/metaconfig-core_2.13/0.12.0/metaconfig-core_2.13-0.12.0.pom
+Downloaded https://repo1.maven.org/maven2/org/scalameta/parsers_2.13/4.8.12/parsers_2.13-4.8.12.pom
+Downloading https://repo1.maven.org/maven2/com/geirsson/metaconfig-pprint_2.13/0.12.0/metaconfig-pprint_2.13-0.12.0.pom
+Downloading https://repo1.maven.org/maven2/com/typesafe/config/1.4.1/config-1.4.1.pom
+Downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.12/scala-compiler-2.13.12.pom
+Downloading https://repo1.maven.org/maven2/org/scalameta/trees_2.13/4.8.12/trees_2.13-4.8.12.pom
+Downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-collection-compat_2.13/2.11.0/scala-collection-compat_2.13-2.11.0.pom
+Downloading https://repo1.maven.org/maven2/org/typelevel/paiges-core_2.13/0.4.3/paiges-core_2.13-0.4.3.pom
+2024.11.06 12:37:39 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+Downloaded https://repo1.maven.org/maven2/com/geirsson/metaconfig-pprint_2.13/0.12.0/metaconfig-pprint_2.13-0.12.0.pom
+Downloaded https://repo1.maven.org/maven2/com/typesafe/config/1.4.1/config-1.4.1.pom
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.12/scala-compiler-2.13.12.pom
+Downloaded https://repo1.maven.org/maven2/org/scalameta/trees_2.13/4.8.12/trees_2.13-4.8.12.pom
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/modules/scala-collection-compat_2.13/2.11.0/scala-collection-compat_2.13-2.11.0.pom
+Downloaded https://repo1.maven.org/maven2/org/typelevel/paiges-core_2.13/0.4.3/paiges-core_2.13-0.4.3.pom
+Downloading https://repo1.maven.org/maven2/org/scalameta/common_2.13/4.8.12/common_2.13-4.8.12.pom
+Downloading https://repo1.maven.org/maven2/com/lihaoyi/fansi_2.13/0.4.0/fansi_2.13-0.4.0.pom
+Downloading https://repo1.maven.org/maven2/org/jline/jline/3.22.0/jline-3.22.0.pom
+Downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.12/scala-reflect-2.13.12.pom
+2024.11.06 12:37:39 INFO  time: compiled joern-parse_f4dd477a3a in 0.53s
+Downloaded https://repo1.maven.org/maven2/org/scalameta/common_2.13/4.8.12/common_2.13-4.8.12.pom
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.12/scala-reflect-2.13.12.pom
+Downloaded https://repo1.maven.org/maven2/com/lihaoyi/fansi_2.13/0.4.0/fansi_2.13-0.4.0.pom
+Downloaded https://repo1.maven.org/maven2/org/jline/jline/3.22.0/jline-3.22.0.pom
+Downloading https://repo1.maven.org/maven2/org/jline/jline-parent/3.22.0/jline-parent-3.22.0.pom
+Downloaded https://repo1.maven.org/maven2/org/jline/jline-parent/3.22.0/jline-parent-3.22.0.pom
+Downloading https://repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.13/0.3.1/sourcecode_2.13-0.3.1.pom
+Downloaded https://repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.13/0.3.1/sourcecode_2.13-0.3.1.pom
+Downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-collection-compat_2.13/2.11.0/scala-collection-compat_2.13-2.11.0.jar
+Downloading https://repo1.maven.org/maven2/com/geirsson/metaconfig-typesafe-config_2.13/0.12.0/metaconfig-typesafe-config_2.13-0.12.0.jar
+Downloading https://repo1.maven.org/maven2/org/scalameta/trees_2.13/4.8.12/trees_2.13-4.8.12.jar
+Downloading https://repo1.maven.org/maven2/com/geirsson/metaconfig-pprint_2.13/0.12.0/metaconfig-pprint_2.13-0.12.0.jar
+Downloading https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.12/scala-reflect-2.13.12.jar
+Downloading https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.jar
+Downloaded https://repo1.maven.org/maven2/com/geirsson/metaconfig-typesafe-config_2.13/0.12.0/metaconfig-typesafe-config_2.13-0.12.0.jar
+Downloading https://repo1.maven.org/maven2/org/scalameta/scalafmt-sysops_2.13/3.7.15/scalafmt-sysops_2.13-3.7.15.jar
+Downloaded https://repo1.maven.org/maven2/com/geirsson/metaconfig-pprint_2.13/0.12.0/metaconfig-pprint_2.13-0.12.0.jar
+Downloading https://repo1.maven.org/maven2/com/typesafe/config/1.4.1/config-1.4.1.jar
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/modules/scala-collection-compat_2.13/2.11.0/scala-collection-compat_2.13-2.11.0.jar
+Downloading https://repo1.maven.org/maven2/org/scalameta/scalafmt-core_2.13/3.7.15/scalafmt-core_2.13-3.7.15.jar
+Downloaded https://repo1.maven.org/maven2/org/scalameta/scalafmt-sysops_2.13/3.7.15/scalafmt-sysops_2.13-3.7.15.jar
+Downloading https://repo1.maven.org/maven2/org/jline/jline/3.22.0/jline-3.22.0.jar
+Downloaded https://repo1.maven.org/maven2/com/typesafe/config/1.4.1/config-1.4.1.jar
+Downloading https://repo1.maven.org/maven2/org/scalameta/scalameta_2.13/4.8.12/scalameta_2.13-4.8.12.jar
+Downloaded https://repo1.maven.org/maven2/org/scalameta/scalameta_2.13/4.8.12/scalameta_2.13-4.8.12.jar
+Downloading https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.12/scala-compiler-2.13.12.jar
+Downloaded https://repo1.maven.org/maven2/org/jline/jline/3.22.0/jline-3.22.0.jar
+Downloading https://repo1.maven.org/maven2/com/geirsson/metaconfig-core_2.13/0.12.0/metaconfig-core_2.13-0.12.0.jar
+Downloaded https://repo1.maven.org/maven2/com/geirsson/metaconfig-core_2.13/0.12.0/metaconfig-core_2.13-0.12.0.jar
+Downloading https://repo1.maven.org/maven2/org/scalameta/parsers_2.13/4.8.12/parsers_2.13-4.8.12.jar
+Downloaded https://repo1.maven.org/maven2/org/scalameta/scalafmt-core_2.13/3.7.15/scalafmt-core_2.13-3.7.15.jar
+Downloading https://repo1.maven.org/maven2/org/scalameta/scalafmt-config_2.13/3.7.15/scalafmt-config_2.13-3.7.15.jar
+Downloaded https://repo1.maven.org/maven2/org/scalameta/scalafmt-config_2.13/3.7.15/scalafmt-config_2.13-3.7.15.jar
+Downloading https://repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.13/0.3.1/sourcecode_2.13-0.3.1.jar
+Downloaded https://repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.13/0.3.1/sourcecode_2.13-0.3.1.jar
+Downloading https://repo1.maven.org/maven2/org/scalameta/common_2.13/4.8.12/common_2.13-4.8.12.jar
+Downloaded https://repo1.maven.org/maven2/org/scalameta/parsers_2.13/4.8.12/parsers_2.13-4.8.12.jar
+Downloading https://repo1.maven.org/maven2/org/typelevel/paiges-core_2.13/0.4.3/paiges-core_2.13-0.4.3.jar
+Downloaded https://repo1.maven.org/maven2/org/typelevel/paiges-core_2.13/0.4.3/paiges-core_2.13-0.4.3.jar
+Downloading https://repo1.maven.org/maven2/com/lihaoyi/fansi_2.13/0.4.0/fansi_2.13-0.4.0.jar
+Nov 06, 2024 12:37:53 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2502
+Downloaded https://repo1.maven.org/maven2/com/lihaoyi/fansi_2.13/0.4.0/fansi_2.13-0.4.0.jar
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.12/scala-reflect-2.13.12.jar
+Downloaded https://repo1.maven.org/maven2/org/scalameta/common_2.13/4.8.12/common_2.13-4.8.12.jar
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.jar
+Still downloading:
+https://repo1.maven.org/maven2/org/scalameta/trees_2.13/4.8.12/trees_2.13-4.8.12.jar (99.38 %, 6698679 / 6740134)
+https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.12/scala-compiler-2.13.12.jar (88.07 %, 10744769 / 12200301)
+
+Downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.12/scala-compiler-2.13.12.jar
+Downloaded https://repo1.maven.org/maven2/org/scalameta/trees_2.13/4.8.12/trees_2.13-4.8.12.jar
+2024.11.06 12:38:17 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 12:38:23 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 12:38:28 INFO  time: compiled joern-parse_f4dd477a3a in 4.9s
+2024.11.06 12:39:12 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 12:39:16 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 12:39:19 INFO  time: compiled joern-parse_f4dd477a3a in 2.32s
+Nov 06, 2024 12:40:17 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2669
+Nov 06, 2024 12:40:17 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2670
+Nov 06, 2024 12:40:22 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2681
+2024.11.06 12:40:26 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+Nov 06, 2024 12:40:28 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2704
+2024.11.06 12:40:29 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 12:40:33 INFO  time: compiled joern-parse_f4dd477a3a in 3.6s
+Nov 06, 2024 12:44:40 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2745
+Nov 06, 2024 12:44:40 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2744
+Nov 06, 2024 12:54:37 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2766
+Nov 06, 2024 12:54:46 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2778
+2024.11.06 13:11:59 INFO  no build target found for /home/kevin/joern-parse/.scala-build/joern-parse_f4dd477a3a/src_generated/main/joern-export-demo/extract_func.scala. Using presentation compiler with project's scala-library version: 3.3.4
+2024.11.06 13:11:59 INFO  no build target found for /home/kevin/joern-parse/.scala-build/joern-parse_f4dd477a3a/src_generated/main/joern-export-demo/extract_func.scala. Using presentation compiler with project's scala-library version: 3.3.4
+2024.11.06 13:12:06 INFO  no build target found for /home/kevin/joern-parse/.scala-build/joern-parse_f4dd477a3a/src_generated/main/joern-export-demo/extract_func.scala. Using presentation compiler with project's scala-library version: 3.3.4
+2024.11.06 13:12:06 INFO  no build target found for /home/kevin/joern-parse/.scala-build/joern-parse_f4dd477a3a/src_generated/main/joern-export-demo/extract_func.scala. Using presentation compiler with project's scala-library version: 3.3.4
+2024.11.06 13:18:02 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 13:18:06 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 13:18:08 INFO  time: compiled joern-parse_f4dd477a3a in 1.36s
+Nov 06, 2024 1:18:30 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2893
+Nov 06, 2024 1:18:31 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2892
+Nov 06, 2024 1:18:31 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2894
+Nov 06, 2024 1:18:40 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2922
+Nov 06, 2024 1:18:40 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2921
+Nov 06, 2024 1:18:40 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2924
+Nov 06, 2024 1:18:56 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2978
+Nov 06, 2024 1:18:57 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2982
+2024.11.06 13:18:58 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+Nov 06, 2024 1:18:59 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2996
+Nov 06, 2024 1:18:59 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2997
+2024.11.06 13:19:03 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 13:19:06 INFO  time: compiled joern-parse_f4dd477a3a in 2.88s
+2024.11.06 13:19:06 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 13:19:06 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 13:19:07 INFO  time: compiled joern-parse_f4dd477a3a in 0.18s
+2024.11.06 13:19:49 WARN  Could not find 'println' using presentation compiler nor semanticdb. Trying to guess the definition using available information from local class context. 
+2024.11.06 13:19:52 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 13:19:57 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 13:20:02 INFO  time: compiled joern-parse_f4dd477a3a in 4.97s
+2024.11.06 13:20:08 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 13:20:09 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 13:20:09 INFO  time: compiled joern-parse_f4dd477a3a in 0.86s
+Nov 06, 2024 1:20:54 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3307
+Nov 06, 2024 1:21:05 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3325
+Nov 06, 2024 1:21:15 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3363
+Nov 06, 2024 1:21:16 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3366
+Nov 06, 2024 1:21:16 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3367
+Nov 06, 2024 1:21:20 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3381
+Nov 06, 2024 1:21:21 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3386
+Nov 06, 2024 1:21:23 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3393
+Nov 06, 2024 1:21:23 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3395
+2024.11.06 13:21:25 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 13:21:27 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 13:21:29 INFO  time: compiled joern-parse_f4dd477a3a in 1.56s
+Nov 06, 2024 1:21:57 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3423
+Nov 06, 2024 1:21:57 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3426
+Nov 06, 2024 1:21:57 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3427
+Nov 06, 2024 1:21:57 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3428
+Nov 06, 2024 1:22:01 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3446
+Nov 06, 2024 1:22:03 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3458
+Nov 06, 2024 1:22:03 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3460
+Nov 06, 2024 1:22:09 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3470
+Nov 06, 2024 1:22:09 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3471
+Nov 06, 2024 1:22:10 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3480
+Nov 06, 2024 1:22:18 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3511
+Nov 06, 2024 1:22:34 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3604
+Nov 06, 2024 1:22:34 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3605
+Nov 06, 2024 1:22:38 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3618
+2024.11.06 13:22:47 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.06 13:22:50 INFO  compiling joern-parse_f4dd477a3a (1 scala source)
+2024.11.06 13:22:54 INFO  time: compiled joern-parse_f4dd477a3a in 3.25s
