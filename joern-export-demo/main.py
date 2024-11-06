@@ -142,13 +142,13 @@ def merge_graphs(main_data, thread_data,
     main_data['edges'].append({
         'source': pthread_create_node,
         'target': thread_method_node,
-        'type': 'SYNC'
+        'type': '\"SYNC\"'
     })
 
     main_data['edges'].append({
         'source': thread_return_node,
         'target': pthread_join_node,
-        'type': 'SYNC'
+        'type': '\"SYNC\"'
     })
 
 def remove_isolated_nodes(graph):
