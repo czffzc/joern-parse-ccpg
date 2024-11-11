@@ -1,3 +1,2 @@
 # 通过joern解析cpg.bin文件获得各个函数的cpg
-output_dir = "/path/to"
-cmd = f'joern --script extract_func.sc --params "{output_dir} --"'
+cmd = f"joern --script extract_func.sc --param codeDir=/home/kevin/joern-parse/joern-export-demo/c_code --param outputDir=/home/kevin/joern-parse"

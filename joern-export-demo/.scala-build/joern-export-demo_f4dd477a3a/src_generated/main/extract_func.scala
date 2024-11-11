@@ -1,3 +1,9 @@
+
+
+final class extract_func$_ {
+def args = extract_func_sc.args$
+def scriptPath = """extract_func.sc"""
+/*<script>*/
 @main def exec(codeDir: String, outputDir: String) = {
   // 使用默认路径
   val defaultCodeDir = "/home/kevin/joern-parse/joern-export-demo/c_code"
@@ -158,3 +164,27 @@ def markLockProtectedNodes() = {
     }
   }
 }
+
+/*</script>*/ /*<generated>*//*</generated>*/
+}
+
+object extract_func_sc {
+  private var args$opt0 = Option.empty[Array[String]]
+  def args$set(args: Array[String]): Unit = {
+    args$opt0 = Some(args)
+  }
+  def args$opt: Option[Array[String]] = args$opt0
+  def args$: Array[String] = args$opt.getOrElse {
+    sys.error("No arguments passed to this script")
+  }
+
+  lazy val script = new extract_func$_
+
+  def main(args: Array[String]): Unit = {
+    args$set(args)
+    val _ = script.hashCode() // hashCode to clear scalac warning about pure expression in statement position
+  }
+}
+
+export extract_func_sc.script as `extract_func`
+
