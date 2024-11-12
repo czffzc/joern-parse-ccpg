@@ -19,7 +19,7 @@ def scriptPath = """joern-export-demo/extract_func.sc"""
   //   "/home/kevin/joern-parse/joern-export-demo/dot/"
   // }
   // val outputDir = "/home/kevin/joern-parse/joern-export-demo/dot/"
-  // new java.io.File(outputDir).mkdirs()
+  new java.io.File(outputDir).mkdirs()
   importCode(codeDir)
   markLockProtectedNodes()
   // 导出所有函数的CFG
