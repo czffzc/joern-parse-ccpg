@@ -140,15 +140,12 @@ def markLockProtectedNodes() = {
 
     lockNodes.foreach { lockNode =>
       unlockNodes.foreach { unlockNode =>
-        if (unlockNode.lineNumber > lockNode.lineNumber) {
-          // 获取lock和unlock之间的所有节点
-          method.ast
-            .filter(node =>
-              node.lineNumber >= lockNode.lineNumber &&
-                node.lineNumber <= unlockNode.lineNumber
-            )
-            .foreach(protectedNodes.add)
-        }
+        val nodesInBetween = lockNode.ast
+          .takeWhile(node => node.id != unlockNode.id)
+          .filter(node => node != lockNode && node != unlockNode)
+          .l
+
+        protectedNodes ++= nodesInBetween
       }
     }
 

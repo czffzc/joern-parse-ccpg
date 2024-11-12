@@ -20,70 +20,89 @@ def scriptPath = """joern-export-demo/extract_func.sc"""
   // }
   // val outputDir = "/home/kevin/joern-parse/joern-export-demo/dot/"
   // new java.io.File(outputDir).mkdirs()
-
-  findPthreadCreateCalls()
+  importCode(codeDir)
+  markLockProtectedNodes()
+  // 导出所有函数的CFG
+  filterMethod(outputDir)
+  createCombinedThreadGraph(outputDir)
 }
 
-def findPthreadCreateCalls() = {
-  println("\n分析pthread_create调用:")
+def createCombinedThreadGraph(outputDir: String) = {
+  println("\n创建组合调用图:")
   println("====================")
+// 存储所有需要合并的图
+  var combinedDotString = "digraph combined {\n"
+  var callThreadName = ""
+  cpg.method.name("main").foreach { mainMethod =>
+    // 获取main函数的图
+    val mainGraph = mainMethod.dotCpg14.l.headOption.getOrElse("")
 
-  importCode("/home/kevin/joern-parse/joern-export-demo/c_code")
+    // 遍历main中的pthread_create调用
+    mainMethod.call.name("pthread_create").foreach { pthreadCall =>
+      val threadFunction = pthreadCall.argument(3)
 
-  cpg
-    .call("pthread_create")
-    .foreach { call =>
-      // 获取所在的函数
-      val parentMethod = call.method.name
-      val location = call.location
-
-      // 获取pthread_create的第3个参数(函数指针)
-      val threadFunction = call.argument(3)
-
-      println(s"\n在函数 '$parentMethod' 中发现pthread_create调用:")
-      println(s"位置: ${location.filename}:${location.lineNumber}")
-
-      // 分析线程函数
-      threadFunction match {
-        case ref: nodes.Identifier =>
-          println(s"线程函数名: ${ref.name}")
-
-          // 查找线程函数的定义
-          cpg
-            .method(ref.name)
-            .foreach { threadMethod =>
-              println("\n线程函数详情:")
-              println(
-                s"- 定义位置: ${threadMethod.location.filename}:${threadMethod.location.lineNumber}"
-              )
-              println(s"- 参数个数: ${threadMethod.parameter.size}")
-              println(s"- 函数签名: ${threadMethod.signature}")
-
-              // 分析线程函数内的函数调用
-              println("\n线程函数中的函数调用:")
-              threadMethod.call
-                .foreach { innerCall =>
-                  println(
-                    s"- ${innerCall.code} (行号: ${innerCall.location.lineNumber})"
-                  )
-                }
-            }
-
-        case call: nodes.Call =>
-          println(s"线程函数通过函数调用获得: ${call.name}")
-          println(s"函数调用代码: ${call.code}")
-
-        case _ =>
-          println(s"线程函数参数类型: ${threadFunction.getClass.getSimpleName}")
+      // 获取线程函数名
+      callThreadName = threadFunction match {
+        case identifier: nodes.Identifier => identifier.name
+        case call: nodes.Call             => call.name
+        case _                            => threadFunction.code
       }
 
-      println(s"\n完整调用代码: ${call.code}")
-      println("----------------------------------------")
-    }
+      // 查找对应的线程函数
+      cpg.method.name(callThreadName).foreach { threadMethod =>
+        // 获取线程函数的图
+        val threadGraph = threadMethod.dotCpg14.l.headOption.getOrElse("")
 
-  if (cpg.call("pthread_create").isEmpty) {
-    println("未发现pthread_create的调用")
+        // 提取两个图的节点和边（去掉digraph声明部分）
+        val mainNodes = extractNodesAndEdges(mainGraph)
+        val threadNodes = extractNodesAndEdges(threadGraph)
+
+        // 获取pthread_create调用节点的ID和线程函数入口节点的ID
+        val callNodeId = pthreadCall.id
+        val threadEntryId = threadMethod.id
+
+        // 合并节点和边
+        combinedDotString += mainNodes
+        combinedDotString += threadNodes
+
+        // 添加调用点到线程函数入口的边
+        combinedDotString += s"""  "${callNodeId}" -> "${threadEntryId}" [color=red,label="creates thread"];\n"""
+
+      }
+      // 遍历pthread_join调用
+      mainMethod.call.name("pthread_join").foreach { joinCall =>
+        println(s"找到pthread_join调用: ${joinCall.code}")
+
+        // 查找对应的线程函数（使用之前保存的threadFuncName）
+        cpg.method.name(callThreadName).foreach { threadMethod =>
+          // 获取线程函数的所有return节点
+          threadMethod.ast.isReturn.foreach { returnNode =>
+            // 添加pthread_join边到return节点
+            combinedDotString += s"""  "${joinCall.id}" -> "${returnNode.id}" [color=blue,label="joins thread"];\n"""
+          }
+        }
+      }
+      combinedDotString += "}\n"
+
+      // 保存合并后的图
+      val fileName = s"${mainMethod.name}_to_${callThreadName}_thread.dot"
+      val outputPath = s"${outputDir}/$fileName"
+      new java.io.PrintWriter(outputPath) { write(combinedDotString); close() }
+      println(s"合并图已保存到: $outputPath")
+    }
   }
+}
+
+// 辅助函数：从dot字符串中提取节点和边的定义
+def extractNodesAndEdges(dotString: String): String = {
+  val lines = dotString.split("\n")
+  lines
+    .filter(line =>
+      !line.trim.startsWith("digraph") &&
+        !line.trim.startsWith("}") &&
+        line.trim.nonEmpty
+    )
+    .mkString("\n") + "\n"
 }
 
 def filterMethod(outputDir: String) = {
@@ -110,6 +129,36 @@ def filterMethod(outputDir: String) = {
         case _ =>
           println(s"Failed to export CPG for function $methodName")
       }
+    }
+  }
+}
+
+def markLockProtectedNodes() = {
+  println("\n分析锁保护区域:")
+  println("====================")
+
+  cpg.method.foreach { method =>
+    // 找到所有的lock和unlock调用
+    val lockNodes = method.call.name(".*lock").l
+    val unlockNodes = method.call.name(".*unlock").l
+
+    // 存储需要标记的节点
+    var protectedNodes = Set[nodes.AstNode]()
+
+    lockNodes.foreach { lockNode =>
+      unlockNodes.foreach { unlockNode =>
+        val nodesInBetween = lockNode.ast
+          .takeWhile(node => node.id != unlockNode.id)
+          .filter(node => node != lockNode && node != unlockNode)
+          .l
+
+        protectedNodes ++= nodesInBetween
+      }
+    }
+
+    // 标记保护区域内的节点
+    protectedNodes.foreach { node =>
+      node.property("color", "green")
     }
   }
 }
