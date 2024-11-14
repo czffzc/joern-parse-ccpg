@@ -103,11 +103,14 @@ def exportAllFunctionsToDot(outputDir: String) = {
         case threadFunc: nodes.Expression =>
           val targetMethods = cpg.method.name(threadFunc.code).l
           targetMethods match {
-            case firstMethod :: _ => // 使用模式匹配获取第一个元素
+            case methods if methods.nonEmpty =>
               println(
-                s"找到${targetMethods.size}个匹配函数,使用第一个: ${firstMethod.name}"
+                s"找到${methods.size}个匹配函数: ${methods.map(_.name).mkString(", ")}"
               )
-              combinedDotString += s"""  "${createCall.id}" -> "${firstMethod.id}" [color=red,label="creates thread"];\n"""
+              // 为每个匹配的方法创建一个连接
+              methods.foreach { method =>
+                combinedDotString += s"""  "${createCall.id}" -> "${method.id}" [color=red,label="creates thread"];\n"""
+              }
             case Nil =>
               println(s"警告: 未找到匹配的线程函数: ${threadFunc.code}")
           }

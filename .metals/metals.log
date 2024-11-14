@@ -2006,3 +2006,7 @@ WARNING: Unmatched cancel notification for request id 943
 2024.11.14 06:04:19 INFO  time: compiled joern-parse_f4dd477a3a in 0.12s
 Nov 14, 2024 6:04:34 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFO: Unsupported notification method: $/setTrace
+2024.11.14 06:09:14 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.14 06:09:14 INFO  Scala CLI: [warn]  Annotation @main in .sc scripts is not supported, use .scala format instead
+2024.11.14 06:09:14 INFO  compiling joern-parse_f4dd477a3a (2 scala sources)
+2024.11.14 06:09:14 INFO  time: compiled joern-parse_f4dd477a3a in 0.12s
