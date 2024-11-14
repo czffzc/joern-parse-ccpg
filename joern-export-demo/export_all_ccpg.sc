@@ -1,5 +1,6 @@
 @main def main(codeDir: String, outputDir: String) = {
   importCode(codeDir)
+  java.io.File(outputDir).mkdirs()
   exportAllFunctionsToDot(outputDir)
 }
 
@@ -90,22 +91,55 @@ def exportAllFunctionsToDot(outputDir: String) = {
 
   // 添加pthread_create边
   cpg.call.name("pthread_create").foreach { createCall =>
-    // 获取线程函数参数
-    createCall.argument(3) match {
-      case threadFunc: nodes.Expression =>
-        // 获取目标函数
-        val targetMethod = cpg.method.name(threadFunc.code).head
-        // 添加create边
-        combinedDotString += s"""  "${createCall.id}" -> "${targetMethod.id}" [color=red,label="creates thread"];\n"""
+    try {
+      createCall.argument(3) match {
+        case threadFunc: nodes.Expression =>
+          val targetMethods = cpg.method.name(threadFunc.code).l
+          targetMethods match {
+            case firstMethod :: _ => // 使用模式匹配获取第一个元素
+              println(
+                s"找到${targetMethods.size}个匹配函数,使用第一个: ${firstMethod.name}"
+              )
+              combinedDotString += s"""  "${createCall.id}" -> "${firstMethod.id}" [color=red,label="creates thread"];\n"""
+            case Nil =>
+              println(s"警告: 未找到匹配的线程函数: ${threadFunc.code}")
+          }
+        case _ =>
+          println(s"警告: pthread_create的第3个参数不是预期的表达式类型")
+      }
+    } catch {
+      case e: Exception =>
+        println(s"处理pthread_create时发生错误: ${e.getMessage}")
+        e.printStackTrace()
     }
   }
 
   // 添加pthread_join边
   cpg.call.name("pthread_join").foreach { joinCall =>
-    // 获取当前函数的return节点
-    val returnNode = joinCall.method.ast.isReturn.head
-    // 添加join边
-    combinedDotString += s"""  "${joinCall.id}" -> "${returnNode.id}" [color=blue,label="joins thread"];\n"""
+    try {
+      // 获取调用pthread_join的函数
+      val callingMethod = joinCall.method
+
+      // 获取调用函数中的所有return节点
+      val returnNodes = callingMethod.ast.isReturn.l
+      if (returnNodes.nonEmpty) {
+        // 如果有return节点,添加join边到第一个return节点
+        combinedDotString += s"""  "${joinCall.id}" -> "${returnNodes.head.id}" [color=blue,label="joins thread"];\n"""
+      } else {
+        // 如果没有显式的return节点,尝试找到函数的最后一个语句或块
+        val lastNode = callingMethod.ast.l.lastOption
+        lastNode match {
+          case Some(node) =>
+            combinedDotString += s"""  "${joinCall.id}" -> "${node.id}" [color=blue,label="joins thread"];\n"""
+          case None =>
+            println(s"警告: 在函数 ${callingMethod.name} 中未找到合适的目标节点")
+        }
+      }
+    } catch {
+      case e: Exception =>
+        println(s"处理pthread_join时发生错误: ${e.getMessage}")
+        e.printStackTrace()
+    }
   }
 
   combinedDotString += "}\n"
