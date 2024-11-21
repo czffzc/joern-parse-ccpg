@@ -1,45 +1,91 @@
-/* mutexex.c   */
-/* Simple pthread example using pthread_mutex to ensure mutual exclusion */
-/* This corrects the bug from raceexample.c                              */
-/* To compile me for Linux, type:  gcc -o filename filename.c -lpthread  */
-/* To execute, type:  filename                                           */
-
-#include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pthread.h>
+#include <semaphore.h>
 
-void *simple(void *);
+void *thread_function(void *arg);
+pthread_mutex_t work_mutex;
 
-#define NUM_THREADS 2
-pthread_t tid[NUM_THREADS]; /* array of thread IDs */
+#define WORK_SIZE 1024
+char work_area[WORK_SIZE];
+int time_to_exit = 0;
 
-int bignum = 0;
-pthread_mutex_t mut;
-
-int main(int argc, char *argv[])
+int main()
 {
-    int i, ret;
-
-    pthread_mutex_init(&mut, NULL);
-
-    for (i = 0; i < NUM_THREADS; i++)
+    int res;
+    pthread_t a_thread;
+    void *thread_result;
+    res = pthread_mutex_init(&work_mutex, NULL);
+    if (res != 0)
     {
-        pthread_create(&tid[i], NULL, simple, NULL);
+        perror("mutex initializatioin failp\n");
+        exit(EXIT_FAILURE);
     }
-    for (i = 0; i < NUM_THREADS; i++)
-        pthread_join(tid[i], NULL);
 
-    printf("main() reporting that all %d threads have terminated\n", i);
-    printf("I am main! bignum=%d\n", bignum);
+    res = pthread_create(&a_thread, NULL, thread_function, NULL);
+    if (res != 0)
+    {
+        perror("thread creation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    pthread_mutex_lock(&work_mutex);
+    printf("input some text,enter 'end' to finish\n");
+    while (!time_to_exit)
+    {
+        fgets(work_area, WORK_SIZE, stdin);
+        pthread_mutex_unlock(&work_mutex);
+        while (1)
+        {
+            pthread_mutex_lock(&work_mutex);
+            if (work_area[0] != '\0')
+            {
+                pthread_mutex_unlock(&work_mutex);
+                sleep(1);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    pthread_mutex_unlock(&work_mutex);
+    printf("waiting for thread to finish\n");
+    res = pthread_join(a_thread, &thread_result);
+    if (res != 0)
+    {
+        perror("thread_join fail\n");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("thread joined \n");
+    pthread_mutex_destroy(&work_mutex);
+    exit(EXIT_SUCCESS);
 }
 
-void *simple(void *parm)
+void *thread_function(void *arg)
 {
-    int i;
-    for (i = 0; i < 10000; i++)
+    sleep(1);
+    pthread_mutex_lock(&work_mutex);
+    while (strncmp("end", work_area, 3) != 0)
     {
-        pthread_mutex_lock(&mut);
-        bignum++;
-        /* critical section */
-        pthread_mutex_unlock(&mut);
+        printf("you input %d characters\n", (int)(strlen(work_area) - 1));
+        work_area[0] = '\0';
+        pthread_mutex_unlock(&work_mutex);
+        sleep(1);
+        pthread_mutex_lock(&work_mutex);
+        while (work_area[0] == '\0')
+        {
+            pthread_mutex_unlock(&work_mutex);
+            sleep(1);
+            pthread_mutex_lock(&work_mutex);
+        }
     }
+
+    time_to_exit = 1;
+    work_area[0] = '\0';
+    pthread_mutex_unlock(&work_mutex);
+    pthread_exit(0);
 }

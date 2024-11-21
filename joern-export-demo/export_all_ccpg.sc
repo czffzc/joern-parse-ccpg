@@ -15,16 +15,18 @@ def exportAllFunctionsToDot(outputDir: String) = {
   var processedNodes = Set[String]()
   var processedEdges = Set[String]()
 
-  // 存储需要标记为阻塞的节点ID
+  // 存储需要标记的节点ID和边
   var blockingNodes = Set[Long]()
+  var blockingEdges = Set[String]()
 
-  // 首先标记所有lock-unlock之间的节点
+  // 标记所有lock-unlock之间的节点和边
   cpg.method.foreach { method =>
     val lockNodes = method.call.name(".*lock").l
     val unlockNodes = method.call.name(".*unlock").l
 
     lockNodes.foreach { lockNode =>
       unlockNodes.foreach { unlockNode =>
+        // 使用CFG而不是AST来获取路径
         // 获取lock到unlock之间的所有节点
         val nodesInBetween = lockNode.ast
           .takeWhile(node => node.id != unlockNode.id)

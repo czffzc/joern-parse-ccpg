@@ -1,10 +1,3 @@
-package joern$minusexport$minusdemo
-
-
-final class export_all_ccpg$_ {
-def args = export_all_ccpg_sc.args$
-def scriptPath = """joern-export-demo/export_all_ccpg.sc"""
-/*<script>*/
 @main def main(codeDir: String, outputDir: String) = {
   importCode(codeDir)
   java.io.File(outputDir).mkdirs()
@@ -28,20 +21,55 @@ def exportAllFunctionsToDot(outputDir: String) = {
 
   // 标记所有lock-unlock之间的节点和边
   cpg.method.foreach { method =>
-    val lockNodes = method.call.name(".*lock").l
-    val unlockNodes = method.call.name(".*unlock").l
+    val lockNodes = method.cfgNode.isCall.name(".*lock").l
 
     lockNodes.foreach { lockNode =>
-      unlockNodes.foreach { unlockNode =>
-        // 使用CFG而不是AST来获取路径
-        // 获取lock到unlock之间的所有节点
-        val nodesInBetween = lockNode.ast
-          .takeWhile(node => node.id != unlockNode.id)
-          .filter(node => node != lockNode && node != unlockNode)
-          .l
+      // 对于每个lock节点，找到最近的unlock节点及其路径
+      val pathsToUnlock = lockNode.cfgNext
+        .repeat(_.cfgNext)(_.until(_.isCall.name(".*unlock")))
+        .enablePathTracking
+        .path
+        .l
 
-        // 添加到阻塞节点集合
-        blockingNodes ++= nodesInBetween.map(_.id)
+      pathsToUnlock.foreach { path =>
+        // 将path转换为StoredNode列表以访问id属性
+        val nodesInPath = path.collect { case node: StoredNode =>
+          node
+        }.toList
+
+        // 添加节点到阻塞集合
+        blockingNodes =
+          blockingNodes ++ Set(lockNode.id()) ++ nodesInPath.map(_.id())
+
+        // 处理路径上的边
+        nodesInPath.sliding(2).foreach {
+          case List(source, target) =>
+            // 构建边的字符串表示
+            val edgeStr = s"""  "${source.id()}" -> "${target.id()}" """
+            val edgePattern = s"""$edgeStr  \\[ label = "(.*?)" \\]""".r
+
+            // 检查边是否已存在，如果存在则添加color属性
+            val newEdgeStr =
+              combinedDotString.split("\n").find(_.startsWith(edgeStr)) match {
+                case Some(existingEdge) =>
+                  // 提取现有的label
+                  edgePattern.findFirstMatchIn(existingEdge) match {
+                    case Some(m) =>
+                      val label = m.group(1)
+                      s"""$edgeStr  [color=red,label = "$label"]"""
+                    case None =>
+                      s"""$edgeStr  [color=red]"""
+                  }
+                case None =>
+                  s"""$edgeStr  [color=red]"""
+              }
+
+            if (!processedEdges.contains(newEdgeStr)) {
+              combinedDotString += newEdgeStr + "\n"
+              processedEdges += newEdgeStr
+            }
+          case _ => // 忽略其他情况
+        }
       }
     }
   }
@@ -53,48 +81,53 @@ def exportAllFunctionsToDot(outputDir: String) = {
 
   // 处理每个函数
   cpg.method.foreach { method =>
-    // 过滤掉不需要的函数
-    if (
-      !method.name.startsWith("pthread") &&
-      !method.name.startsWith("perror") &&
-      !method.name.startsWith("printf") &&
-      !method.name.toLowerCase.contains("global") &&
-      !method.name.toLowerCase.contains("operator")
-    ) {
+    method.dotCpg14.l match {
+      case List(dotString: String) =>
+        // 提取节点和边的定义
+        val nodesAndEdges = extractNodesAndEdges(dotString)
 
-      method.dotCpg14.l match {
-        case List(dotString: String) =>
-          // 提取节点和边的定义
-          val nodesAndEdges = extractNodesAndEdges(dotString)
-
-          // 将新的节点和边添加到合并图中(避免重复)
-          nodesAndEdges.split("\n").foreach { line =>
-            if (line.trim.nonEmpty) {
-              if (line.contains("->")) {
-                if (!processedEdges.contains(line)) {
-                  combinedDotString += line + "\n"
-                  processedEdges += line
+        // 处理函数调用和返回边
+        method.call.foreach { callNode =>
+          // 获取被调用的方法
+          callNode.callee.foreach { callee =>
+            // 构造从被调用函数返回到调用点的边
+            val returnEdgeStr = s"""  "${callee.id()}" -> "${callNode
+                .id()}"  [color=blue,style=dashed,label = "return"]"""
+            if (!processedEdges.contains(returnEdgeStr)) {
+              combinedDotString += returnEdgeStr + "\n"
+              processedEdges += returnEdgeStr
+            }
+          }
+        }
+        // 将新的节点和边添加到合并图中(避免重复)
+        nodesAndEdges.split("\n").foreach { line =>
+          if (line.trim.nonEmpty) {
+            if (line.contains("->")) {
+              if (!processedEdges.contains(line)) {
+                combinedDotString += line + "\n"
+                processedEdges += line
+              }
+            } else {
+              if (!processedNodes.contains(line)) {
+                // 提取节点ID
+                val nodeIdPattern = """(\d+)""".r
+                val modifiedLine = nodeIdPattern.findFirstIn(line) match {
+                  case Some(idStr) if blockingNodes.contains(idStr.toLong) =>
+                    // 在节点定义中添加shape属性
+                    line.replaceFirst(
+                      """(\"\d+\") \[(label = .*)(\])""",
+                      "$1 [shape=diamond,$2$3"
+                    )
+                  case _ => line
                 }
-              } else {
-                if (!processedNodes.contains(line)) {
-                  // 提取节点ID
-                  val nodeIdPattern = """(\d+)""".r
-                  val modifiedLine = nodeIdPattern.findFirstIn(line) match {
-                    case Some(idStr) if blockingNodes.contains(idStr.toLong) =>
-                      // 在节点定义中添加shape属性
-                      line.replaceFirst(
-                        """(\"\d+\") \[(label = .*)(\])""",
-                        "$1 [shape=diamond,$2$3"
-                      )
-                    case _ => line
-                  }
-                  combinedDotString += modifiedLine + "\n"
-                  processedNodes += line
-                }
+                combinedDotString += modifiedLine + "\n"
+                processedNodes += line
               }
             }
           }
-      }
+        }
+
+      case _ =>
     }
   }
 
@@ -168,32 +201,8 @@ def extractNodesAndEdges(dotString: String): String = {
   lines
     .filter(line =>
       !line.trim.startsWith("digraph") &&
-        !line.trim.startsWith("}") &&
+        !(line.trim == "}") &&
         line.trim.nonEmpty
     )
     .mkString("\n") + "\n"
 }
-
-/*</script>*/ /*<generated>*//*</generated>*/
-}
-
-object export_all_ccpg_sc {
-  private var args$opt0 = Option.empty[Array[String]]
-  def args$set(args: Array[String]): Unit = {
-    args$opt0 = Some(args)
-  }
-  def args$opt: Option[Array[String]] = args$opt0
-  def args$: Array[String] = args$opt.getOrElse {
-    sys.error("No arguments passed to this script")
-  }
-
-  lazy val script = new export_all_ccpg$_
-
-  def main(args: Array[String]): Unit = {
-    args$set(args)
-    val _ = script.hashCode() // hashCode to clear scalac warning about pure expression in statement position
-  }
-}
-
-export export_all_ccpg_sc.script as `export_all_ccpg`
-
