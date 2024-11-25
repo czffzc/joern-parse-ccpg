@@ -93,6 +93,19 @@ def exportAllFunctionsToDot(outputDir: String) = {
         // 提取节点和边的定义
         val nodesAndEdges = extractNodesAndEdges(dotString)
 
+        // 处理函数调用和返回边
+        method.call.foreach { callNode =>
+          // 获取被调用的方法
+          callNode.callee.foreach { callee =>
+            // 构造从被调用函数返回到调用点的边
+            val returnEdgeStr = s"""  "${callee.id()}" -> "${callNode
+                .id()}"  [color=blue,style=dashed,label = "return"]"""
+            if (!processedEdges.contains(returnEdgeStr)) {
+              combinedDotString += returnEdgeStr + "\n"
+              processedEdges += returnEdgeStr
+            }
+          }
+        }
         // 将新的节点和边添加到合并图中(避免重复)
         nodesAndEdges.split("\n").foreach { line =>
           if (line.trim.nonEmpty) {
@@ -120,6 +133,8 @@ def exportAllFunctionsToDot(outputDir: String) = {
             }
           }
         }
+
+      case _ =>
     }
   }
 
