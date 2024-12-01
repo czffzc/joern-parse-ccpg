@@ -1,0 +1,31 @@
+// 切片类型: backward
+// 源节点: pthread_mutex_destroy
+// 相关节点数: 82
+
+pthread_mutex_init(&work_mutex, NULL)
+0
+perror(
+EXIT_FAILURE
+thread_function
+res != 0
+perror(
+exit(EXIT_FAILURE)
+work_mutex
+printf(
+time_to_exit
+WORK_SIZE
+work_mutex
+1
+pthread_mutex_lock(&work_mutex)
+0
+&work_mutex
+1
+break;
+&work_mutex
+printf(
+pthread_join(a_thread, &thread_result)
+0
+perror(
+exit(EXIT_FAILURE)
+printf(
+work_mutex

@@ -1,0 +1,21 @@
+// 切片类型: combined
+// 源节点: pthread_mutex_unlock
+// 相关节点数: 58
+
+RET
+sleep(1)
+work_mutex
+3
+work_area
+'\0'
+work_mutex
+sleep(1)
+work_mutex
+0
+work_mutex
+1
+work_mutex
+time_to_exit = 1
+'\0'
+work_mutex
+0

@@ -1,0 +1,5 @@
+// 切片类型: function
+// 源节点: pthread_join
+// 相关节点数: 1
+
+pthread_join(a_thread, &thread_result)

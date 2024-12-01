@@ -1,0 +1,25 @@
+// 切片类型: backward
+// 源节点: pthread_join
+// 相关节点数: 60
+
+NULL
+res != 0
+perror(
+EXIT_FAILURE
+thread_function
+res != 0
+exit(EXIT_FAILURE)
+&work_mutex
+printf(
+time_to_exit
+fgets(work_area, WORK_SIZE, stdin)
+&work_mutex
+1
+&work_mutex
+'\0'
+work_mutex
+1
+break;
+&work_mutex
+printf(
+&thread_result

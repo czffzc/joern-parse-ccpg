@@ -1,0 +1,9 @@
+// 切片类型: backward
+// 源节点: pthread_create
+// 相关节点数: 21
+
+res = pthread_mutex_init(&work_mutex, NULL)
+0
+perror(
+EXIT_FAILURE
+NULL

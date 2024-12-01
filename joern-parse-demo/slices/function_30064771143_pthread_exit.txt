@@ -1,0 +1,5 @@
+// 切片类型: function
+// 源节点: pthread_exit
+// 相关节点数: 1
+
+pthread_exit(0)

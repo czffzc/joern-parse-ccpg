@@ -1,0 +1,35 @@
+// 切片类型: combined
+// 源节点: pthread_mutex_unlock
+// 相关节点数: 78
+
+RET
+NULL
+res != 0
+perror(
+EXIT_FAILURE
+thread_function
+res != 0
+perror(
+exit(EXIT_FAILURE)
+&work_mutex
+printf(
+time_to_exit
+fgets(work_area, WORK_SIZE, stdin)
+&work_mutex
+while (1)
+&work_mutex
+'\0'
+{
+                pthread_mutex_unlock(&work_mutex);
+                sleep(1);
+            }
+work_mutex
+1
+else
+break;
+&work_mutex
+printf(
+a_thread
+res
+work_mutex
+exit(EXIT_SUCCESS)

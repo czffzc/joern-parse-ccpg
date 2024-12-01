@@ -1,0 +1,5 @@
+// 切片类型: backward
+// 源节点: pthread_mutex_init
+// 相关节点数: 6
+
+pthread_mutex_init(&work_mutex, NULL)

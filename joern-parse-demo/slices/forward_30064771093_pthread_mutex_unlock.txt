@@ -1,0 +1,22 @@
+// 切片类型: forward
+// 源节点: pthread_mutex_unlock
+// 相关节点数: 50
+
+RET
+time_to_exit
+fgets(work_area, WORK_SIZE, stdin)
+work_mutex
+1
+&work_mutex
+0
+work_mutex
+sleep(1)
+break;
+&work_mutex
+printf(
+&thread_result
+res
+perror(
+exit(EXIT_FAILURE)
+work_mutex
+exit(EXIT_SUCCESS)

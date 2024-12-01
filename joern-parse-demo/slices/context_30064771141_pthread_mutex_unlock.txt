@@ -1,0 +1,8 @@
+// 切片类型: context
+// 源节点: pthread_mutex_unlock
+// 相关节点数: 11
+
+time_to_exit
+work_area
+pthread_mutex_unlock(&work_mutex)
+pthread_exit(0)

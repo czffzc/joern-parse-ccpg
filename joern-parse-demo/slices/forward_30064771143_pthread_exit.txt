@@ -1,0 +1,6 @@
+// 切片类型: forward
+// 源节点: pthread_exit
+// 相关节点数: 2
+
+RET
+pthread_exit(0)

@@ -1,0 +1,15 @@
+// 切片类型: context
+// 源节点: pthread_mutex_unlock
+// 相关节点数: 17
+
+1
+pthread_mutex_lock(&work_mutex)
+0
+{
+                pthread_mutex_unlock(&work_mutex);
+                sleep(1);
+            }
+&work_mutex
+sleep(1)
+else
+break;

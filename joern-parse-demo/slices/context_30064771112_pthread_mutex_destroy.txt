@@ -1,0 +1,10 @@
+// 切片类型: context
+// 源节点: pthread_mutex_destroy
+// 相关节点数: 14
+
+perror(
+EXIT_FAILURE
+printf(
+pthread_mutex_destroy(&work_mutex)
+EXIT_SUCCESS
+void *arg

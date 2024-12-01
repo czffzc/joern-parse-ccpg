@@ -1,0 +1,9 @@
+// 切片类型: function
+// 源节点: pthread_mutex_lock
+// 相关节点数: 5
+
+pthread_mutex_lock(&work_mutex)
+pthread_mutex_lock(&work_mutex)
+pthread_mutex_lock(&work_mutex)
+pthread_mutex_lock(&work_mutex)
+pthread_mutex_lock(&work_mutex)

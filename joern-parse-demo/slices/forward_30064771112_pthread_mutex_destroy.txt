@@ -1,0 +1,7 @@
+// 切片类型: forward
+// 源节点: pthread_mutex_destroy
+// 相关节点数: 4
+
+RET
+pthread_mutex_destroy(&work_mutex)
+EXIT_SUCCESS

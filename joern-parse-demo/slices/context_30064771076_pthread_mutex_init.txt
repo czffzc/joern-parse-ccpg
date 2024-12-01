@@ -1,0 +1,14 @@
+// 切片类型: context
+// 源节点: pthread_mutex_init
+// 相关节点数: 19
+
+RET
+int res
+pthread_t a_thread
+void* thread_result
+res = pthread_mutex_init(&work_mutex, NULL)
+if (res != 0)
+{
+        perror(
+perror(
+EXIT_FAILURE

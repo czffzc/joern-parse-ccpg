@@ -1,0 +1,3 @@
+digraph {
+  30064771082[label=CALL ARGUMENT_INDEX="2" CODE="pthread_create(&a_thread, NULL, thread_function, NULL)" COLUMN_NUMBER="11" DISPATCH_TYPE="STATIC_DISPATCH" LINE_NUMBER="26" METHOD_FULL_NAME="pthread_create" NAME="pthread_create" ORDER="2" SIGNATURE="" TYPE_FULL_NAME="ANY"]
+}

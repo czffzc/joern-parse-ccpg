@@ -1,0 +1,12 @@
+// 切片类型: context
+// 源节点: pthread_join
+// 相关节点数: 20
+
+&work_mutex
+printf(
+&thread_result
+0
+{
+        perror(
+perror(
+exit(EXIT_FAILURE)

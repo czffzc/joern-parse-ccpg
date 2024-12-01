@@ -1,0 +1,20 @@
+// 切片类型: forward
+// 源节点: pthread_mutex_lock
+// 相关节点数: 55
+
+RET
+pthread_mutex_lock(&work_mutex)
+3
+1
+'\0'
+work_mutex
+sleep(1)
+work_mutex
+0
+work_mutex
+sleep(1)
+work_mutex
+time_to_exit = 1
+'\0'
+work_mutex
+0
