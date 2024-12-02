@@ -93,13 +93,30 @@ def build_node_graph(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # 匹配边的定义: node1 -> node2 [label=TYPE]
-    edge_pattern = r'(\d+)\s*->\s*(\d+)\s*\[label=([^\]]+)\]'
+    # 修改边的匹配模式，更准确地处理属性值
+    edge_pattern = r'(\d+)\s*->\s*(\d+)\s*\[label=([^]]+?)\]'
     
     for match in re.finditer(edge_pattern, content):
         from_node = match.group(1)
         to_node = match.group(2)
-        edge_type = match.group(3)
+        edge_attrs = match.group(3).strip()
+        
+        # 处理edge_attrs中的属性
+        if 'property=' in edge_attrs:
+            # 找到property的起始和结束引号
+            prop_start = edge_attrs.find('property="')
+            if prop_start != -1:
+                prop_start += 9  # len('property="')
+                prop_end = edge_attrs.find('"', prop_start)
+                if prop_end != -1:
+                    property_value = edge_attrs[prop_start:prop_end]
+                    edge_type = edge_attrs[:prop_start-9].strip()  # 提取label部分
+                else:
+                    edge_type = edge_attrs
+            else:
+                edge_type = edge_attrs
+        else:
+            edge_type = edge_attrs
         
         if from_node not in edges:
             edges[from_node] = []
@@ -270,7 +287,11 @@ def extract_slice_subgraph(nodes, edges, slice_nodes):
         if from_node in slice_nodes:  # 只处理切片中的节点
             for to_node, edge_type in edges[from_node]:
                 if to_node in slice_nodes:  # 确保目标节点也在切片中
-                    edge_str = f'  {from_node} -> {to_node} [label={edge_type}]\n'
+                    # 正确处理edge_type中的property
+                    if 'property=' in edge_type:
+                        edge_str = f'  {from_node} -> {to_node} [label={edge_type}]\n'
+                    else:
+                        edge_str = f'  {from_node} -> {to_node} [label={edge_type}]\n'
                     subgraph += edge_str
     
     subgraph += "}"
