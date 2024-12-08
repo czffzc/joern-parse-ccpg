@@ -1,14 +1,89 @@
-@main def main(codeDir: String, outputDir: String) = {
+@main def main(codeDir: String, outputDir: String, format: String = "cpg") = {
   importCode(codeDir)
   java.io.File(outputDir).mkdirs()
-  exportAllFunctionsToDot(outputDir)
+  if (format == "cpg") {
+    exportAllFunctionsToCpg(outputDir)
+  } else if (format == "ccpg") {
+    exportAllFunctionsToCCPG(outputDir)
+  }
 }
 
-def exportAllFunctionsToDot(outputDir: String) = {
+def exportAllFunctionsToCpg(outputDir: String) = {
   println("\n导出所有函数的合并CPG:")
   println("====================")
 
   var combinedDotString = "digraph combined_cpg {\n"
+  var processedNodes = Set[String]()
+  var processedEdges = Set[String]()
+  cpg.method.foreach { method =>
+    // 直接构建包含所需属性的节点定义
+    method.ast.foreach { node =>
+      val nodeId = node.id.toString
+      if (!processedNodes.contains(nodeId)) {
+        // 构建基本label
+        val baseLabel = node.label
+        val code = Option(node.code).getOrElse("")
+        val lineNum = node.lineNumber.getOrElse("")
+        val colNum = node.columnNumber.getOrElse("")
+        
+        // 构建完整的节点定义
+        val nodeStr = s""""$nodeId" [label = <($baseLabel,$code)<SUB>$lineNum</SUB>> COLUMN_NUMBER="$colNum" LINE_NUMBER="$lineNum"]\n"""
+        combinedDotString += nodeStr
+        processedNodes += nodeId
+      }
+    }
+
+    // 添加边
+    method.ast.foreach { node =>
+      // AST edges
+      node._astOut.foreach { child =>
+        // 提取纯数字ID
+        val nodeId = node.id.toString.split("=").last.dropRight(2)  // 移除最后的 "].id"
+        val childId = child.id.toString.split("=").last.dropRight(2)
+        val edgeStr = s"""  "$nodeId" -> "$childId"  [ label = "AST: "] """
+        if (!processedEdges.contains(edgeStr)) {
+          combinedDotString += edgeStr + "\n"
+          processedEdges += edgeStr
+        }
+      }
+
+      // CFG edges
+      node._cfgOut.foreach { succ =>
+        val nodeId = node.id.toString.split("=").last.dropRight(2)
+        val succId = succ.id.toString.split("=").last.dropRight(2)
+        val edgeStr = s"""  "$nodeId" -> "$succId"  [ label = "CFG: "] """
+        if (!processedEdges.contains(edgeStr)) {
+          combinedDotString += edgeStr + "\n"
+          processedEdges += edgeStr
+        }
+      }
+
+      // CDG edges
+      node._cdgOut.foreach { dependent =>
+        val nodeId = node.id.toString.split("=").last.dropRight(2)
+        val depId = dependent.id.toString.split("=").last.dropRight(2)
+        val edgeStr = s"""  "$nodeId" -> "$depId"  [ label = "CDG: "] """
+        if (!processedEdges.contains(edgeStr)) {
+          combinedDotString += edgeStr + "\n"
+          processedEdges += edgeStr
+        }
+      }
+    }
+
+  }
+
+  combinedDotString += "}\n"
+
+  val outputPath = s"${outputDir}/combined_cpg.dot"
+  new java.io.PrintWriter(outputPath) { write(combinedDotString); close() }
+  println(s"CPG已保存到: $outputPath")
+}
+
+def exportAllFunctionsToCCPG(outputDir: String) = {
+  println("\n导出所有函数的合并CCPG:")
+  println("----------------------")
+
+  var combinedDotString = "digraph combined_ccpg {\n"
   var processedNodes = Set[String]()
   var processedEdges = Set[String]()
 
@@ -136,7 +211,7 @@ def exportAllFunctionsToDot(outputDir: String) = {
 
   combinedDotString += "}\n"
 
-  val outputPath = s"${outputDir}/combined_functions.dot"
+  val outputPath = s"${outputDir}/combined_ccpg.dot"
   new java.io.PrintWriter(outputPath) { write(combinedDotString); close() }
-  println(s"合并图已保存到: $outputPath")
+  println(s"CCPG已保存到: $outputPath")
 }
