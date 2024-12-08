@@ -36,10 +36,9 @@ def exportAllFunctionsToCpg(outputDir: String) = {
     // 添加边
     method.ast.foreach { node =>
       // AST edges
+      val nodeId = node.id.toString
       node._astOut.foreach { child =>
-        // 提取纯数字ID
-        val nodeId = node.id.toString.split("=").last.dropRight(2)  // 移除最后的 "].id"
-        val childId = child.id.toString.split("=").last.dropRight(2)
+        val childId = child.id.toString
         val edgeStr = s"""  "$nodeId" -> "$childId"  [ label = "AST: "] """
         if (!processedEdges.contains(edgeStr)) {
           combinedDotString += edgeStr + "\n"
@@ -49,8 +48,7 @@ def exportAllFunctionsToCpg(outputDir: String) = {
 
       // CFG edges
       node._cfgOut.foreach { succ =>
-        val nodeId = node.id.toString.split("=").last.dropRight(2)
-        val succId = succ.id.toString.split("=").last.dropRight(2)
+        val succId = succ.id.toString
         val edgeStr = s"""  "$nodeId" -> "$succId"  [ label = "CFG: "] """
         if (!processedEdges.contains(edgeStr)) {
           combinedDotString += edgeStr + "\n"
@@ -60,8 +58,7 @@ def exportAllFunctionsToCpg(outputDir: String) = {
 
       // CDG edges
       node._cdgOut.foreach { dependent =>
-        val nodeId = node.id.toString.split("=").last.dropRight(2)
-        val depId = dependent.id.toString.split("=").last.dropRight(2)
+        val depId = dependent.id.toString
         val edgeStr = s"""  "$nodeId" -> "$depId"  [ label = "CDG: "] """
         if (!processedEdges.contains(edgeStr)) {
           combinedDotString += edgeStr + "\n"
