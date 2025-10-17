@@ -3,7 +3,7 @@
 
 | Parameter  | Description                                                                 | Required |
 |------------|-----------------------------------------------------------------------------|----------|
-| `codeDir`  | Directory containing C/C++ source files to analyze                          | Yes      |
+| `codeDir`  | Directory containing a C/C++ source file to analyze                          | Yes      |
 | `outputDir` | Directory where output files will be saved                                  | Yes      |
 | `format`   | Output format: `ccpg` , or `cpg` (origin CPG) | Yes      |
 
