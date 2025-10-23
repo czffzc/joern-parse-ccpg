@@ -99,7 +99,6 @@ def train(curr_epochs, _trainLoader, model, criterion, optimizer, device):
         #     target = torch.tensor([0.0,1.0], dtype=long).cuda()
         optimizer.zero_grad()
         
-        # 用adam优化器优化模型
         
         try:
             #out = model(data.x.to(torch.float32), data.edge_index, data.batch)

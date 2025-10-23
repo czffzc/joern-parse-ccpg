@@ -356,7 +356,6 @@ class RevealModel(nn.Module):
         y_a = self.__classifier(h_a)
         return y_a
     
-# 写一个RGCN的模型
 class RGCN(nn.Module):
     def __init__(self, output_dim=200, input_dim=100, num_relations=5):
         super().__init__()
@@ -387,7 +386,6 @@ class RGCN(nn.Module):
         result = self.softmax(avg)
         return result
 
-# 写一个RGAT的模型
 class RGAT(nn.Module):
     def __init__(self, input_dim=100, output_dim=200, num_relations=5, heads=1):
         super(RGAT, self).__init__()
@@ -395,7 +393,6 @@ class RGAT(nn.Module):
         self.heads = heads
         self.convs = nn.ModuleList()
         
-        # 创建多个 GATConv 层，每个关系类型一个
         for _ in range(num_relations):
             self.convs.append(GATConv(input_dim, output_dim // heads, heads=heads, concat=True))
         
@@ -420,10 +417,8 @@ class RGAT(nn.Module):
         edge_index = edge_index.to(torch.device("cuda:0"))
         edge_type = edge_type.to(torch.device("cuda:0"))
 
-        # 初始化输出张量
         outputs = torch.zeros_like(x).to(torch.device("cuda:0"))
 
-        # 对每种关系类型分别应用 GATConv
         for i in range(self.num_relations):
             mask = (edge_type == i)
             edge_index_i = edge_index[:, mask]
