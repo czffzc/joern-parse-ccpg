@@ -54,3 +54,10 @@ in directory ./vul_detect
 
 # subgraphx
 in directory ./SubgraphX
+
+
+The GNN and SubgraphX implementations are based on vdgraph.
+
+# Dataset Available
+https://doi.org/10.6084/m9.figshare.30418294.v1
+
